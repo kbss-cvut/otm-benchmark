@@ -8,6 +8,7 @@ import cz.cvut.kbss.benchmark.util.Config;
 import net.enilink.komma.core.IEntityManager;
 import net.enilink.komma.core.IEntityManagerFactory;
 import net.enilink.komma.core.KommaModule;
+import net.enilink.komma.dm.change.DataChangeTracker;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.http.HTTPRepository;
 import org.eclipse.rdf4j.repository.sail.SailRepository;
@@ -19,6 +20,7 @@ public class PersistenceFactory {
 
     private final Repository repository;
     private final IEntityManagerFactory emf;
+    private final DataChangeTracker changeTracker;
 
     PersistenceFactory() {
         // When running in a jar, Sesame for some reason does not register appropriate RDF writer factories
@@ -39,9 +41,11 @@ public class PersistenceFactory {
             }
         }));
         this.emf = injector.getInstance(IEntityManagerFactory.class);
+        this.changeTracker = injector.getInstance(DataChangeTracker.class);
     }
 
     public IEntityManager entityManager() {
+        changeTracker.setEnabled(null, false);
         return emf.get();
     }
 
