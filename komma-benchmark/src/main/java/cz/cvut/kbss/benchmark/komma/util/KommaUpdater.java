@@ -28,10 +28,8 @@ public class KommaUpdater {
                 continue;
             }
             final OccurrenceReport toUpdate = generator.getReports().get(i);
-            updateReport(toUpdate, generator);
             em.getTransaction().begin();
-            em.merge(toUpdate);
-            em.merge(toUpdate.getAuthor());
+            updateReport(toUpdate, generator);
             em.getTransaction().commit();
             updated.add(toUpdate);
         }

@@ -6,7 +6,7 @@ LOGFILE=logback.xml
 WARMUPS=20
 ROUNDS=100
 EXECUTIONS=5
-MEMORY=(64m 128m 256m 512m 1g)
+MEMORY=(32m 64m 128m 256m 512m 1g)
 
 GRAPHDB_HOME=~/Java/graphdb-free-8.4.1/
 GRAPHDB_PIDFILE=/tmp/.graphdbpid
