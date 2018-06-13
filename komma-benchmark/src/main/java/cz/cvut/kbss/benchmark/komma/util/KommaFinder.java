@@ -13,6 +13,9 @@ public class KommaFinder {
     }
 
     public OccurrenceReport find(URI uri) {
-        return em.find(uri, OccurrenceReport.class);
+//        return em.find(uri, OccurrenceReport.class);
+        // This query is more optimal for loading entity attributes eagerly.
+        return em.createQuery("construct { ?r a <komma:Result> . ?s ?p ?o } where { ?r (!<:>|<:>)* ?s . ?s ?p ?o }")
+                 .setParameter("r", uri).getSingleResult(OccurrenceReport.class);
     }
 }
