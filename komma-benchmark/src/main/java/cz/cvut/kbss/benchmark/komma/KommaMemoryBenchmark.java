@@ -69,10 +69,8 @@ public class KommaMemoryBenchmark {
     private void update() {
         try (IEntityManager em = persistenceFactory.entityManager()) {
             generator.getReports().forEach(r -> {
-                KommaUpdater.updateReport(r, generator);
                 em.getTransaction().begin();
-                em.merge(r);
-                em.merge(r.getAuthor());
+                KommaUpdater.updateReport(r, generator);
                 em.getTransaction().commit();
             });
         } catch (RuntimeException e) {

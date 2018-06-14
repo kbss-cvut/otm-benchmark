@@ -4,7 +4,7 @@ import cz.cvut.kbss.benchmark.BenchmarkException;
 import cz.cvut.kbss.benchmark.komma.KommaGenerator;
 import cz.cvut.kbss.benchmark.komma.model.Event;
 import cz.cvut.kbss.benchmark.komma.model.OccurrenceReport;
-import net.enilink.komma.core.IEntityManager;
+import cz.cvut.kbss.benchmark.komma.model.Resource;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -33,7 +34,7 @@ public class BenchmarkUtil {
     }
 
     public static void executeRetrieve(KommaGenerator generator, KommaFinder finder) {
-        findAllAndVerify(generator, finder);
+        generator.getDetachedReports().forEach(r -> checkReport(r, finder.find(r.getUri())));
     }
 
     public static void findAllAndVerify(KommaGenerator generator, KommaFinder finder) {
@@ -47,7 +48,8 @@ public class BenchmarkUtil {
         assertNotNull(actual.getOccurrence());
         assertEquals(expected.getOccurrence().getName(), actual.getOccurrence().getName());
         assertEquals(expected.getSeverityAssessment(), actual.getSeverityAssessment());
-        assertEquals(expected.getAttachments(), actual.getAttachments());
+        final Set<String> expectedKeys = expected.getAttachments().stream().map(Resource::getKey).collect(Collectors.toSet());
+        actual.getAttachments().forEach(a -> assertTrue(expectedKeys.contains(a.getKey())));
         assertEquals(expected.getAuthor(), actual.getAuthor());
         assertEquals(expected.getLastModifiedBy(), actual.getLastModifiedBy());
         assertEquals(expected.getAuthor().getContacts(), actual.getAuthor().getContacts());
@@ -59,7 +61,8 @@ public class BenchmarkUtil {
         assertNotNull(actual);
         assertEquals(expected.size(), actual.size());
         for (Event expEvent : expected) {
-            final Optional<Event> actEvent = actual.stream().filter(e -> expEvent.getKey().equals(e.getKey())).findAny();
+            final Optional<Event> actEvent = actual.stream().filter(e -> expEvent.getKey().equals(e.getKey()))
+                                                   .findAny();
             assertTrue(actEvent.isPresent());
             final Event evt = actEvent.get();
             assertEquals(expEvent.getStart(), evt.getStart());

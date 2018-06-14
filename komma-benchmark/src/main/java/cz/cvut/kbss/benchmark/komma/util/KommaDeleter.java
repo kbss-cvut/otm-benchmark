@@ -53,6 +53,6 @@ public class KommaDeleter {
     }
 
     public void verifyDelete() {
-        deleted.forEach(object -> assertFalse(em.contains(em.find(generator.getUri(object), OccurrenceReport.class))));
+        deleted.forEach(r -> assertFalse(em.contains(em.find(generator.getUri(r), OccurrenceReport.class))));
     }
 }

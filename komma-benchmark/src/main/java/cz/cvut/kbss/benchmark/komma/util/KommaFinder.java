@@ -4,6 +4,8 @@ import cz.cvut.kbss.benchmark.komma.model.OccurrenceReport;
 import net.enilink.komma.core.IEntityManager;
 import net.enilink.komma.core.URI;
 
+import java.util.List;
+
 public class KommaFinder {
 
     private final IEntityManager em;
@@ -17,5 +19,9 @@ public class KommaFinder {
         // This query is more optimal for loading entity attributes eagerly.
         return em.createQuery("construct { ?r a <komma:Result> . ?s ?p ?o } where { ?r (!<:>|<:>)* ?s . ?s ?p ?o }")
                  .setParameter("r", uri).getSingleResult(OccurrenceReport.class);
+    }
+
+    public List<OccurrenceReport> findAll() {
+        return em.findAll(OccurrenceReport.class).toList();
     }
 }

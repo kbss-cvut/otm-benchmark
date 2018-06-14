@@ -11,7 +11,7 @@ public class RetrieveBenchmarkRunner extends KommaBenchmarkRunner {
         super.setUp();
         final IEntityManager em = persistenceFactory.entityManager();
         generator.setEm(em);
-        generator.persistData();
+        generator.persistDataWithDetached();
         em.close();
         System.gc();
         System.gc();

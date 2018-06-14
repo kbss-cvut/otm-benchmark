@@ -34,6 +34,7 @@ public class KommaGenerator {
     private final Random random = new Random();
 
     private List<OccurrenceReport> reports;
+    private List<DefaultOccurrenceReport> detachedReports;
     private List<Person> persons;
 
     public void persistData() {
@@ -47,6 +48,16 @@ public class KommaGenerator {
     public void persistPersons() {
         em.getTransaction().begin();
         this.persons = generatePersons();
+        em.getTransaction().commit();
+    }
+
+    public void persistDataWithDetached() {
+        this.instances = new IdentityHashMap<>();
+        em.getTransaction().begin();
+        this.persons = generatePersons();
+        this.reports = generateReports();
+        this.detachedReports = reports.stream().map(r -> createDetachedReport(r, getUri(r)))
+                                      .collect(Collectors.toList());
         em.getTransaction().commit();
     }
 
@@ -151,8 +162,10 @@ public class KommaGenerator {
         event.setKey(generateKey());
         // Can't reuse the value from occurrence, since it is null.
         // It appears that getters of newly created instances do not return proper values until commit
-        event.setStart(BenchmarkUtil.toXmlGregorianCalendar(new Date(System.currentTimeMillis() - 10000)));
-        event.setEnd(BenchmarkUtil.toXmlGregorianCalendar(new Date()));
+        event.setStart(
+                BenchmarkUtil.datatypeFactory().newXMLGregorianCalendar(occurrence.getStart().toGregorianCalendar()));
+        event.setEnd(
+                BenchmarkUtil.datatypeFactory().newXMLGregorianCalendar(occurrence.getEnd().toGregorianCalendar()));
         event.setEventType(URIs.createURI(EVENT_TYPES[random.nextInt(EVENT_TYPES.length)].toString()));
         instances.put(event, uri);
         return event;
@@ -187,8 +200,29 @@ public class KommaGenerator {
         return Long.toString(System.currentTimeMillis()) + random.nextInt();
     }
 
+    private DefaultOccurrenceReport createDetachedReport(OccurrenceReport report, URI reportUri) {
+        final DefaultOccurrenceReport detached = new DefaultOccurrenceReport();
+        detached.setUri(reportUri);
+        detached.setKey(report.getKey());
+        detached.setOccurrence(new DefaultOccurrence(report.getOccurrence()));
+        detached.setSeverityAssessment(report.getSeverityAssessment());
+        detached.setAuthor(new DefaultPerson(report.getAuthor()));
+        detached.setFileNumber(report.getFileNumber());
+        detached.setDateCreated(report.getDateCreated());
+        detached.setLastModified(report.getLastModified());
+        detached.setLastModifiedBy(new DefaultPerson(report.getLastModifiedBy()));
+        detached.setAttachments(report.getAttachments().stream().map(DefaultResource::new).collect(Collectors.toSet()));
+        detached.setSummary(report.getSummary());
+        detached.setRevision(report.getRevision());
+        return detached;
+    }
+
     public List<OccurrenceReport> getReports() {
         return Collections.unmodifiableList(reports);
+    }
+
+    public List<DefaultOccurrenceReport> getDetachedReports() {
+        return Collections.unmodifiableList(detachedReports);
     }
 
     public List<Person> getPersons() {
