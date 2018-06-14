@@ -7,7 +7,7 @@
     <groupId>cz.cvut.kbss.benchmark</groupId>
     <artifactId>otm-benchmark</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
     <name>OTM Benchmark</name>
     <description>Performance/memory benchmark of object-triple mapping (OTM) libraries.</description>
 
