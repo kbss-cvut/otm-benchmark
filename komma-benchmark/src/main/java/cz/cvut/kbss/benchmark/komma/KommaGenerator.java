@@ -133,39 +133,37 @@ public class KommaGenerator {
         occurrence.setName("Occurrence" + random.nextInt());
         occurrence.setStart(BenchmarkUtil.toXmlGregorianCalendar(new Date(System.currentTimeMillis() - 10000)));
         occurrence.setEnd(BenchmarkUtil.toXmlGregorianCalendar(new Date()));
-        occurrence.setSubEvents(generateEventHierarchy(occurrence));
+        occurrence.setSubEvents(generateEventHierarchy());
         occurrence.setEventType(URIs.createURI(EVENT_TYPES[random.nextInt(EVENT_TYPES.length)].toString()));
         instances.put(occurrence, uri);
         return occurrence;
     }
 
-    private Set<Event> generateEventHierarchy(Occurrence occurrence) {
-        return generateEvents(occurrence, 0, Constants.MAX_EVENT_DEPTH);
+    private Set<Event> generateEventHierarchy() {
+        return generateEvents(0, Constants.MAX_EVENT_DEPTH);
     }
 
-    private Set<Event> generateEvents(Occurrence occurrence, int level, int maxLevel) {
+    private Set<Event> generateEvents(int level, int maxLevel) {
         if (level >= maxLevel) {
             return null;
         }
         final Set<Event> events = new HashSet<>();
         for (int i = 0; i < Constants.MAX_CHILD_EVENTS; i++) {
-            final Event evt = generateEvent(occurrence);
-            evt.setSubEvents(generateEvents(occurrence, level + 1, maxLevel));
+            final Event evt = generateEvent();
+            evt.setSubEvents(generateEvents(level + 1, maxLevel));
             events.add(evt);
         }
         return events;
     }
 
-    private Event generateEvent(Occurrence occurrence) {
+    private Event generateEvent() {
         final URI uri = URIs.createURI(generateUri(Event.class).toString());
         final Event event = em.createNamed(uri, Event.class);
         event.setKey(generateKey());
         // Can't reuse the value from occurrence, since it is null.
         // It appears that getters of newly created instances do not return proper values until commit
-        event.setStart(
-                BenchmarkUtil.datatypeFactory().newXMLGregorianCalendar(occurrence.getStart().toGregorianCalendar()));
-        event.setEnd(
-                BenchmarkUtil.datatypeFactory().newXMLGregorianCalendar(occurrence.getEnd().toGregorianCalendar()));
+        event.setStart(BenchmarkUtil.toXmlGregorianCalendar(new Date(System.currentTimeMillis() - 10000)));
+        event.setEnd(BenchmarkUtil.toXmlGregorianCalendar(new Date()));
         event.setEventType(URIs.createURI(EVENT_TYPES[random.nextInt(EVENT_TYPES.length)].toString()));
         instances.put(event, uri);
         return event;
