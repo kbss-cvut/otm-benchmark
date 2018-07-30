@@ -44,7 +44,7 @@ restart_repository()
     start_repository
 }
 
-execute_benchmark()
+execute_with_provider()
 {
     cd ${1}/target
     echo "Create..."
@@ -81,35 +81,35 @@ execute_round()
     echo "---------------------------------------" >> ${OUTPUT}
     echo "|               AliBaba               |" >> ${OUTPUT}
     echo "---------------------------------------" >> ${OUTPUT}
-    execute_benchmark "alibaba-benchmark" ${1}
+    execute_with_provider "alibaba-benchmark" ${1}
 
     #Empire Benchmark
     echo "Running Empire..."
     echo "---------------------------------------" >> ${OUTPUT}
     echo "|               Empire                |" >> ${OUTPUT}
     echo "---------------------------------------" >> ${OUTPUT}
-    execute_benchmark "empire-benchmark" ${1}
+    execute_with_provider "empire-benchmark" ${1}
 
     # JOPA Benchmark
     echo "Running JOPA..."
     echo "---------------------------------------" >> ${OUTPUT}
     echo "|               JOPA                  |" >> ${OUTPUT}
     echo "---------------------------------------" >> ${OUTPUT}
-    execute_benchmark "jopa-benchmark" ${1}
+    execute_with_provider "jopa-benchmark" ${1}
 
     # KOMMA Benchmark
     echo "Running KOMMA..."
     echo "---------------------------------------" >> ${OUTPUT}
     echo "|               KOMMA                 |" >> ${OUTPUT}
     echo "---------------------------------------" >> ${OUTPUT}
-    execute_benchmark "komma-benchmark" ${1}
+    execute_with_provider "komma-benchmark" ${1}
 
     # RDFBeans Benchmark
     echo "Running RDFBeans..."
     echo "---------------------------------------" >> ${OUTPUT}
     echo "|               RDFBeans              |" >> ${OUTPUT}
     echo "---------------------------------------" >> ${OUTPUT}
-    execute_benchmark "rdfbeans-benchmark" ${1}
+    execute_with_provider "rdfbeans-benchmark" ${1}
 }
 
 execute_benchmark()
