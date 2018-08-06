@@ -56,9 +56,10 @@ public class KommaGenerator {
         em.getTransaction().begin();
         this.persons = generatePersons();
         this.reports = generateReports();
+        em.getTransaction().commit();
+        // Have to create them after transaction, otherwise the getters all return null
         this.detachedReports = reports.stream().map(r -> createDetachedReport(r, getUri(r)))
                                       .collect(Collectors.toList());
-        em.getTransaction().commit();
     }
 
     public void executeCreate() {
