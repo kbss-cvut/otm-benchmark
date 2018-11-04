@@ -6,6 +6,8 @@
 #
 ###
 
+# TODO: Unify with benchmark.sh
+
 JAVA=/opt/java-8-oracle/bin/java
 LOGFILE=logback.xml
 WARMUPS=5

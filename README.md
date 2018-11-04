@@ -87,18 +87,6 @@ All attributes of all entities are set, none is left empty. Also, lazy loading i
 
 The data are generated in `DataGenerator`.
 
+### Installation and Execution
 
-### Execution
-
-The benchmark cleans up the repository after each round and uses a new persistence context for each round.
-
-The execution can be configured using the following parameters:
-
-* **-w** is the number of warmup rounds, which are not measured.
-* **-r** is the number of measured rounds.
-* **-f** is the scaling factor, which configures the size of the benchmark dataset. Default is 1.
-* **-o** is the file into which individual round execution times should be written. This is useful for separate processing of the raw execution times e.g. in R.
-* **-m** is the file into which memory tracking statistics should be output. These are collected using `jstat`.
-
-`benchmark.sh` contains a predefined configuration. It executes the benchmark on all supported libraries and outputs the results into `benchmark.log`.
-
+Information about requirements, installation and execution can be found in [howto.md](howto.md).
