@@ -9,7 +9,6 @@ EXECUTIONS=5
 MEMORY=(32m 64m 128m 256m 512m 1g)
 DATA_DIR=data
 
-# TODO: Change to version-less path
 GRAPHDB_HOME=~/Java/graphdb-free-8.4.1/
 GRAPHDB_PIDFILE=/tmp/.graphdbpid
 start_graphdb()

@@ -10,6 +10,17 @@ import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Primary entry point for the memory benchmark application.
+ * <p>
+ * Defines the algorithm invoked during the benchmark (CRUD operations in a loop) which are executed in a loop for a configured
+ * amount of time.
+ * <p>
+ * Subclasses need to provide implementation of {@link Saver}, {@link Finder}, {@link Updater} and {@link Deleter} factory methods.
+ *
+ * @param <P> Concrete implementation of {@link Person}
+ * @param <R> Concrete implementation of {@link OccurrenceReport}
+ */
 public abstract class AbstractMemoryBenchmark<P extends Person, R extends OccurrenceReport> {
 
     private final DataGenerator<P, R> generator;

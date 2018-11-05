@@ -11,6 +11,11 @@ import java.util.*;
 import static cz.cvut.kbss.benchmark.util.Constants.ITEM_COUNT;
 import static org.junit.Assert.*;
 
+/**
+ * Abstract implementation of {@link BenchmarkRunner} which defines the performance benchmark algorithm.
+ * @param <P>
+ * @param <R>
+ */
 public abstract class AbstractRunner<P extends Person, R extends OccurrenceReport> implements BenchmarkRunner {
 
     protected DataGenerator<P, R> generator;

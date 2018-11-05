@@ -6,6 +6,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
+/**
+ * Primary entry point for the performance benchmark application.
+ * <p>
+ * Defines the supported operations and the CLI interface.
+ * <p>
+ * Subclasses need to provide an implementation which creates a {@link BenchmarkRunner} instance to execute.
+ * <p>
+ * The implementation will mostly likely be a subclass of {@link AbstractRunner}.
+ */
 public abstract class AbstractBenchmark {
 
     protected static final Logger LOG = LoggerFactory.getLogger(AbstractBenchmark.class);

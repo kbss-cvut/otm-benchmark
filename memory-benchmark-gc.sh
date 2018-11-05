@@ -6,8 +6,6 @@
 #
 ###
 
-# TODO: Unify with benchmark.sh
-
 JAVA=/opt/java-8-oracle/bin/java
 LOGFILE=logback.xml
 MEM=40m

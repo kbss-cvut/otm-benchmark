@@ -5,6 +5,11 @@ import cz.cvut.kbss.benchmark.model.OccurrenceReport;
 
 import java.util.Collection;
 
+/**
+ * Finds reports.
+ *
+ * @param <R> Concrete implementation of {@link OccurrenceReport}
+ */
 public interface Finder<R extends OccurrenceReport> {
 
     R find(R expected);
@@ -13,5 +18,8 @@ public interface Finder<R extends OccurrenceReport> {
 
     boolean exists(HasIdentifier instance);
 
+    /**
+     * Closes the repository accessor.
+     */
     void close();
 }
