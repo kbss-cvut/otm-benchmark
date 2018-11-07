@@ -139,7 +139,7 @@ echo "Running benchmark..."
 for mem in "${MEMORY[@]}"
 do
     echo "Running benchmark with memory size ${mem}"
-    execute_benchmark $mem
+    execute_benchmark ${mem}
 done
 
 echo "Benchmark finished."

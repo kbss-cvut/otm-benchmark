@@ -13,8 +13,9 @@ import static org.junit.Assert.*;
 
 /**
  * Abstract implementation of {@link BenchmarkRunner} which defines the performance benchmark algorithm.
- * @param <P>
- * @param <R>
+ *
+ * @param <P> Concrete implementation of {@link Person}
+ * @param <R> Concrete implementation of {@link Person}
  */
 public abstract class AbstractRunner<P extends Person, R extends OccurrenceReport> implements BenchmarkRunner {
 
@@ -170,7 +171,8 @@ public abstract class AbstractRunner<P extends Person, R extends OccurrenceRepor
         }
     }
 
-    public static <P extends Person, R extends OccurrenceReport> void updateReport(R toUpdate, DataGenerator<P, R> generator) {
+    public static <P extends Person, R extends OccurrenceReport> void updateReport(R toUpdate,
+                                                                                   DataGenerator<P, R> generator) {
         toUpdate.setLastModifiedBy(generator.randomItem(generator.getPersons()));
         toUpdate.getOccurrence().setName(toUpdate.getOccurrence().getName() + "-updated");
         toUpdate.setSeverityAssessment(generator.randomInt(Constants.MAX_SEVERITY));

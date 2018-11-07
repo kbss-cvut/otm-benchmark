@@ -14,10 +14,13 @@ import static cz.cvut.kbss.benchmark.util.Constants.*;
 /**
  * Generates data for the benchmark.
  * <p>
- * The generator takes a factor parameter, which is used to configure the size of the generated dataset by multiplying the
- * {@link Constants#ITEM_COUNT} with it.
+ * The generator takes a factor parameter, which is used to configure the size of the generated dataset by multiplying
+ * the {@link Constants#ITEM_COUNT} with it.
  * <p>
  * Implement the abstract methods generating implementations of the model classes in concrete OTM frameworks.
+ * <p>
+ * If the generator is able to create detached instances of the object model classes, {@link #generate()} should be
+ * called in the subclass constructor so that instance generation is not executed during benchmark, possibly skewing performance data.
  *
  * @param <P> Concrete implementation of {@link Person}
  * @param <R> Concrete implementation of {@link OccurrenceReport}
@@ -74,7 +77,8 @@ public abstract class DataGenerator<P extends Person, R extends OccurrenceReport
     }
 
     /**
-     * Gets current date rounded to whole seconds. This is because some libraries have trouble working with times in milliseconds.
+     * Gets current date rounded to whole seconds. This is because some libraries have trouble working with times in
+     * milliseconds.
      *
      * @return Current date and time rounded to whole seconds
      */
