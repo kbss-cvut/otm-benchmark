@@ -22,7 +22,7 @@ Execution:
 
 ## Configuration
 
-Configuration of the OTM framework-specific runners is done through `config.properties` files in the respective modules. The files can be found in `src/main/resources`.
+Configuration of the object-triple mapping (OTM) library-specific runners is done through `config.properties` files in the respective modules. The files can be found in `src/main/resources`.
 
 For example, the _AliBaba_ configuration is thus in `alibaba-benchmark/src/main/resources/config.properties`.
 
@@ -87,7 +87,7 @@ All the GC data are written into separate files named after the respective OTM f
 
 **`jstat`-based memory benchmark is not used anymore because of its inconclusive results.**
 
-## Adapting Benchmark to an OTM Framework
+## Adapting Benchmark to an OTM Library
 
 Adapting the benchmark to a new library consists of creating implementations of several key interfaces and abstract classes. The benchmark
 algorithm itself is implemented in the _core_ module, the OTM benchmarking modules need to provide only parts specific to the evaluated framework.
