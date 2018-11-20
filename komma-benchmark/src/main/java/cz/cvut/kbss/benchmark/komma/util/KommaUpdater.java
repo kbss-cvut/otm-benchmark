@@ -1,9 +1,11 @@
 package cz.cvut.kbss.benchmark.komma.util;
 
 import cz.cvut.kbss.benchmark.komma.KommaGenerator;
+import cz.cvut.kbss.benchmark.komma.model.Occurrence;
 import cz.cvut.kbss.benchmark.komma.model.OccurrenceReport;
 import cz.cvut.kbss.benchmark.util.Constants;
 import net.enilink.komma.core.IEntityManager;
+import net.enilink.komma.core.URI;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -14,6 +16,7 @@ public class KommaUpdater {
     private final IEntityManager em;
     private final KommaGenerator generator;
 
+    private List<URI> updatedUris;
     private List<OccurrenceReport> updated;
 
     public KommaUpdater(IEntityManager em, KommaGenerator generator) {
@@ -23,15 +26,19 @@ public class KommaUpdater {
 
     public void executeUpdate() {
         this.updated = new ArrayList<>(Constants.ITEM_COUNT / 2);
-        for (int i = 0; i < generator.getReports().size(); i++) {
+        this.updatedUris = new ArrayList<>(Constants.ITEM_COUNT / 2);
+        for (int i = 0; i < generator.getDetachedReports().size(); i++) {
             if (i % 2 == 0) {
                 continue;
             }
-            final OccurrenceReport toUpdate = generator.getReports().get(i);
             em.getTransaction().begin();
+            final OccurrenceReport toUpdate = em
+                    .createQuery("construct { ?r a <komma:Result> . ?s ?p ?o } where { ?r (!<:>|<:>)* ?s . ?s ?p ?o }")
+                    .setParameter("r", generator.getDetachedReports().get(i).getUri()).getSingleResult(OccurrenceReport.class);
             updateReport(toUpdate, generator);
             em.getTransaction().commit();
             updated.add(toUpdate);
+            updatedUris.add(generator.getDetachedReports().get(i).getUri());
         }
     }
 
@@ -48,9 +55,10 @@ public class KommaUpdater {
     }
 
     public void verifyUpdates() {
-        updated.forEach(r -> {
-            final OccurrenceReport result = em.find(generator.getUri(r), OccurrenceReport.class);
-            BenchmarkUtil.checkReport(r, result);
-        });
+        for (int i = 0; i < updated.size(); i++) {
+            final OccurrenceReport expected = updated.get(i);
+            final OccurrenceReport actual = em.find(updatedUris.get(i), OccurrenceReport.class);
+            BenchmarkUtil.checkReport(expected, actual);
+        }
     }
 }

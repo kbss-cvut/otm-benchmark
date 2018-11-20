@@ -1,6 +1,7 @@
 package cz.cvut.kbss.benchmark.komma.util;
 
 import cz.cvut.kbss.benchmark.komma.KommaGenerator;
+import cz.cvut.kbss.benchmark.komma.model.DefaultOccurrenceReport;
 import cz.cvut.kbss.benchmark.komma.model.Event;
 import cz.cvut.kbss.benchmark.komma.model.OccurrenceReport;
 import net.enilink.komma.core.IEntityManager;
@@ -17,7 +18,7 @@ public class KommaDeleter {
     private final IEntityManager em;
     private final KommaGenerator generator;
 
-    private List<OccurrenceReport> deleted;
+    private List<DefaultOccurrenceReport> deleted;
 
     public KommaDeleter(IEntityManager em, KommaGenerator generator) {
         this.em = em;
@@ -30,10 +31,12 @@ public class KommaDeleter {
             if (i % 2 != 0) {
                 continue;
             }
-            final OccurrenceReport report = generator.getReports().get(i);
+            final DefaultOccurrenceReport report = generator.getDetachedReports().get(i);
             deleted.add(report);
             em.getTransaction().begin();
-            final OccurrenceReport toDelete = em.find(generator.getUri(report), OccurrenceReport.class);
+            final OccurrenceReport toDelete = em
+                    .createQuery("construct { ?r a <komma:Result> . ?s ?p ?o } where { ?r (!<:>|<:>)* ?s . ?s ?p ?o }")
+                    .setParameter("r", report.getUri()).getSingleResult(OccurrenceReport.class);
             deleteEvents(toDelete.getOccurrence().getSubEvents());
             em.remove(toDelete.getOccurrence());
             toDelete.getAttachments().forEach(em::remove);
@@ -53,6 +56,6 @@ public class KommaDeleter {
     }
 
     public void verifyDelete() {
-        deleted.forEach(r -> assertFalse(em.contains(em.find(generator.getUri(r), OccurrenceReport.class))));
+        deleted.forEach(r -> assertFalse(em.contains(em.find(r.getUri(), OccurrenceReport.class))));
     }
 }
