@@ -104,4 +104,4 @@ The `scripts` folder contains a couple of scripts used to process the resulting 
 The following R scripts expect datasets generated using `transform_performance.py`.
 * `otm-benchmark-boxplot.R` - generates boxplots visualizing the results for one heap size
 * `otm-benchmark-scalability.R` - generates scalability line plots for all operations and all supported heap sizes
-* `otm-benchmark-stats.R` - generates basic statistics - mean execution time, standard deviation and the 95% quartile
+* `otm-benchmark-stats.R` - generates basic statistics - mean execution time, standard deviation and the 95% confidence interval
