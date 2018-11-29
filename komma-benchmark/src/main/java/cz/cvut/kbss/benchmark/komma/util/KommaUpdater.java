@@ -1,7 +1,6 @@
 package cz.cvut.kbss.benchmark.komma.util;
 
 import cz.cvut.kbss.benchmark.komma.KommaGenerator;
-import cz.cvut.kbss.benchmark.komma.model.Occurrence;
 import cz.cvut.kbss.benchmark.komma.model.OccurrenceReport;
 import cz.cvut.kbss.benchmark.util.Constants;
 import net.enilink.komma.core.IEntityManager;
