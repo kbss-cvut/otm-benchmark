@@ -1,6 +1,8 @@
 # OTM Benchmark
 
-Performance/memory benchmark of OTM (object-triple mapping) libraries.
+Performance/memory benchmark of object-triple mapping (OTM) libraries.
+
+An OTM framework comparison paper including this benchmark is currently under review at the [Semantic Web Journal](http://www.semantic-web-journal.net/content/comparison-object-triple-mapping-frameworks).
 
 Currently supported libraries:
 
@@ -12,8 +14,7 @@ Currently supported libraries:
 
 The benchmark is executed against a locally running GraphDB (but any RDF4J-compatible triple store can be used without the need to modify anything).
 
-
-### Specification
+## Specification
 
 The following types of operations are supported:
 
@@ -87,6 +88,20 @@ All attributes of all entities are set, none is left empty. Also, lazy loading i
 
 The data are generated in `DataGenerator`.
 
-### Installation and Execution
+## Installation and Execution
 
 Information about requirements, installation and execution can be found in [howto.md](howto.md).
+
+## Results
+
+Execution results are available at [https://kbss.felk.cvut.cz/web/kbss/otm-benchmark](https://kbss.felk.cvut.cz/web/kbss/otm-benchmark).
+
+### Result Processing
+
+The `scripts` folder contains a couple of scripts used to process the resulting data files.
+
+* `transform_performance.py` - a Python script used to consolidate raw execution results for each library into one CSV file, suitable for processing in R.
+The following R scripts expect datasets generated using `transform_performance.py`.
+* `otm-benchmark-boxplot.R` - generates boxplots visualizing the results for one heap size
+* `otm-benchmark-scalability.R` - generates scalability line plots for all operations and all supported heap sizes
+* `otm-benchmark-stats.R` - generates basic statistics - mean execution time, standard deviation and the 95% quartile
