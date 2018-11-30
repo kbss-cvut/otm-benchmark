@@ -8,6 +8,12 @@
 # heap - heap size corresponding to the directory naming pattern, e.g., 32m, 1g
 performance_stats <- function(baseDir, operation, provider, heap) {
   file <- paste(baseDir, sprintf("%s/%s-benchmark_%s.data", heap, provider, operation), sep='')
+  tryres <- try(read.table(file, quote="\"", comment.char=""), silent = TRUE)
+  if (class(tryres) == "try-error") {
+    result <- list()
+    result$mean <- NA
+    return(result)
+  }
   data <- read.table(file, quote="\"", comment.char="")
   result <- list()
   result$mean <- mean(data$V1)
