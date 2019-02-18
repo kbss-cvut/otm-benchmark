@@ -2,7 +2,7 @@
 
 Performance/memory benchmark of object-triple mapping (OTM) libraries.
 
-An OTM framework comparison paper including this benchmark is currently under review at the [Semantic Web Journal](http://www.semantic-web-journal.net/content/comparison-object-triple-mapping-frameworks).
+An OTM library comparison paper including this benchmark is has been published in the [Semantic Web](http://www.semantic-web-journal.net/content/comparison-object-triple-mapping-libraries) journal [1].
 
 Currently supported libraries:
 
@@ -105,3 +105,6 @@ The following R scripts expect datasets generated using `transform_performance.p
 * `otm-benchmark-boxplot.R` - generates boxplots visualizing the results for one heap size
 * `otm-benchmark-scalability.R` - generates scalability line plots for all operations and all supported heap sizes
 * `otm-benchmark-stats.R` - generates basic statistics - mean execution time, standard deviation and the 95% confidence interval
+
+## References
+[1] Ledvinka, M.; Křemen, P., A comparison of object-triple mapping libraries, Semantic Web, 2019, 1-43. ISSN 2210-4968. doi: [10.3233/SW-190345](http://dx.doi.org/10.3233/SW-190345).
