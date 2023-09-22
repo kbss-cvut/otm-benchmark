@@ -94,7 +94,7 @@ Information about requirements, installation and execution can be found in [howt
 
 ## Results
 
-Execution results are available at [https://kbss.felk.cvut.cz/web/kbss/otm-benchmark](https://kbss.felk.cvut.cz/web/kbss/otm-benchmark).
+Execution results are available at [https://kbss.felk.cvut.cz/web/otm-benchmark](https://kbss.felk.cvut.cz/web/otm-benchmark).
 
 ### Result Processing
 
