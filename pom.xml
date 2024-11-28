@@ -29,7 +29,7 @@
     <repositories>
         <repository>
             <id>KBSS</id>
-            <url>http://kbss.felk.cvut.cz/m2repo</url>
+            <url>https://kbss.felk.cvut.cz/m2repo</url>
         </repository>
     </repositories>
 
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>cz.cvut.kbss.benchmark</groupId>
             <artifactId>benchmark-runner</artifactId>
-            <version>0.0.5</version>
+            <version>0.0.6</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
