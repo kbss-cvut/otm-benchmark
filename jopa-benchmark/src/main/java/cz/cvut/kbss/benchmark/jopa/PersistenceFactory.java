@@ -4,17 +4,13 @@ import cz.cvut.kbss.benchmark.util.Config;
 import cz.cvut.kbss.jopa.Persistence;
 import cz.cvut.kbss.jopa.model.EntityManager;
 import cz.cvut.kbss.jopa.model.EntityManagerFactory;
+import cz.cvut.kbss.jopa.model.JOPAPersistenceProperties;
 import cz.cvut.kbss.jopa.model.JOPAPersistenceProvider;
-import cz.cvut.kbss.ontodriver.config.OntoDriverProperties;
-import cz.cvut.kbss.ontodriver.sesame.SesameDataSource;
-import cz.cvut.kbss.ontodriver.sesame.config.SesameOntoDriverProperties;
-import org.eclipse.rdf4j.rio.RDFWriterRegistry;
-import org.eclipse.rdf4j.rio.binary.BinaryRDFWriterFactory;
+import cz.cvut.kbss.ontodriver.rdf4j.config.Rdf4jOntoDriverProperties;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static cz.cvut.kbss.jopa.model.JOPAPersistenceProperties.*;
 
 class PersistenceFactory {
 
@@ -22,19 +18,19 @@ class PersistenceFactory {
 
     PersistenceFactory() {
         // When running in a jar, RDF4J for some reason does not register appropriate RDF writer factories
-        RDFWriterRegistry.getInstance().add(new BinaryRDFWriterFactory());
+//        RDFWriterRegistry.getInstance().add(new BinaryRDFWriterFactory());
         final Map<String, String> properties = new HashMap<>();
         if (Config.getRepoUrl().isPresent()) {
-            properties.put(ONTOLOGY_PHYSICAL_URI_KEY, Config.getRepoUrl().get());
+            properties.put(JOPAPersistenceProperties.ONTOLOGY_PHYSICAL_URI_KEY, Config.getRepoUrl().get());
         } else {
-            properties.put(ONTOLOGY_PHYSICAL_URI_KEY, "BenchmarkStorage");
-            properties.put(SesameOntoDriverProperties.SESAME_USE_VOLATILE_STORAGE, Boolean.TRUE.toString());
+            properties.put(JOPAPersistenceProperties.ONTOLOGY_PHYSICAL_URI_KEY, "BenchmarkStorage");
+            properties.put(Rdf4jOntoDriverProperties.USE_VOLATILE_STORAGE, Boolean.TRUE.toString());
         }
-        properties.put(DATA_SOURCE_CLASS, SesameDataSource.class.getCanonicalName());
-        properties.put(OntoDriverProperties.ONTOLOGY_LANGUAGE, "en");
-        properties.put(SCAN_PACKAGE, "cz.cvut.kbss.benchmark.jopa.model");
-        properties.put(JPA_PERSISTENCE_PROVIDER, JOPAPersistenceProvider.class.getName());
-        properties.put(CACHE_ENABLED, Boolean.FALSE.toString());
+        properties.put(JOPAPersistenceProperties.DATA_SOURCE_CLASS, "cz.cvut.kbss.ontodriver.rdf4j.Rdf4jDataSource");
+        properties.put(JOPAPersistenceProperties.LANG, "en");
+        properties.put(JOPAPersistenceProperties.SCAN_PACKAGE, "cz.cvut.kbss.benchmark.jopa.model");
+        properties.put(JOPAPersistenceProperties.JPA_PERSISTENCE_PROVIDER, JOPAPersistenceProvider.class.getName());
+        properties.put(JOPAPersistenceProperties.CACHE_ENABLED, Boolean.FALSE.toString());
         this.emf = Persistence.createEntityManagerFactory("benchmarkPU", properties);
     }
 
