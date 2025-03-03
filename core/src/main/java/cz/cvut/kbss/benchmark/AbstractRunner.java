@@ -9,7 +9,10 @@ import java.io.File;
 import java.util.*;
 
 import static cz.cvut.kbss.benchmark.util.Constants.ITEM_COUNT;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Abstract implementation of {@link BenchmarkRunner} which defines the performance benchmark algorithm.

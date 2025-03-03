@@ -14,16 +14,16 @@
     <modules>
         <module>core</module>
         <module>alibaba-benchmark</module>
-        <module>empire-benchmark</module>
+<!--        <module>empire-benchmark</module>-->
         <module>jopa-benchmark</module>
-        <module>komma-benchmark</module>
+<!--        <module>komma-benchmark</module>-->
         <module>rdfbeans-benchmark</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <repositories>
@@ -37,19 +37,12 @@
         <dependency>
             <groupId>cz.cvut.kbss.benchmark</groupId>
             <artifactId>benchmark-runner</artifactId>
-            <version>0.0.6</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-        </dependency>
-
-        <!-- Required by Sesame/RDF4J -->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.11.2</version>
         </dependency>
     </dependencies>
 
@@ -59,7 +52,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.13.0</version>
             </plugin>
 
             <!-- Set project version (recursively) -->
@@ -67,7 +60,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.7</version>
             </plugin>
         </plugins>
     </build>

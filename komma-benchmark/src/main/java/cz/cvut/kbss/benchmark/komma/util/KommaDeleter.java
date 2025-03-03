@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import static cz.cvut.kbss.benchmark.util.Constants.ITEM_COUNT;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class KommaDeleter {
 

@@ -8,7 +8,7 @@ import cz.cvut.kbss.benchmark.util.Constants;
 
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Primary entry point for the memory benchmark application.

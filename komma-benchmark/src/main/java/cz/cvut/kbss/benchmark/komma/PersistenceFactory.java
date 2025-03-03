@@ -23,14 +23,14 @@ public class PersistenceFactory {
     private final DataChangeTracker changeTracker;
 
     PersistenceFactory() {
-        // When running in a jar, Sesame for some reason does not register appropriate RDF writer factories
+        // When running in a jar, RDF4J for some reason does not register appropriate RDF writer factories
         RDFWriterRegistry.getInstance().add(new BinaryRDFWriterFactory());
         if (Config.getRepoUrl().isPresent()) {
             this.repository = new HTTPRepository(Config.getRepoUrl().get());
         } else {
             this.repository = new SailRepository(new MemoryStore());
         }
-        repository.initialize();
+        repository.init();
         Injector injector = Guice.createInjector(new BenchmarkModule(repository, new KommaModule() {
             {
                 addConcept(Person.class);
