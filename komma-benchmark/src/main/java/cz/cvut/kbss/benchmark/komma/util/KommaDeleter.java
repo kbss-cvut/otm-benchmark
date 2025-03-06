@@ -4,14 +4,16 @@ import cz.cvut.kbss.benchmark.komma.KommaGenerator;
 import cz.cvut.kbss.benchmark.komma.model.DefaultOccurrenceReport;
 import cz.cvut.kbss.benchmark.komma.model.Event;
 import cz.cvut.kbss.benchmark.komma.model.OccurrenceReport;
+import cz.cvut.kbss.benchmark.model.Vocabulary;
 import net.enilink.komma.core.IEntityManager;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import static cz.cvut.kbss.benchmark.util.Constants.ITEM_COUNT;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class KommaDeleter {
 
@@ -56,6 +58,13 @@ public class KommaDeleter {
     }
 
     public void verifyDelete() {
-        deleted.forEach(r -> assertFalse(em.contains(em.find(r.getUri(), OccurrenceReport.class))));
+        deleted.forEach(r -> {
+            final List<DefaultOccurrenceReport> result =
+                    em.createQuery("SELECT ?r WHERE { ?r a ?type }")
+                      .setParameter("r", r)
+                      .setParameter("type", URI.create(Vocabulary.s_c_occurrence_report))
+                      .evaluate(DefaultOccurrenceReport.class).toList();
+            assertTrue(result.isEmpty());
+        });
     }
 }

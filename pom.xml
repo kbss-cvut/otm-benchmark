@@ -16,7 +16,7 @@
         <module>alibaba-benchmark</module>
 <!--        <module>empire-benchmark</module>-->
         <module>jopa-benchmark</module>
-<!--        <module>komma-benchmark</module>-->
+        <module>komma-benchmark</module>
         <module>rdfbeans-benchmark</module>
     </modules>
 
