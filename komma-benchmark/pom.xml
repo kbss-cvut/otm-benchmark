@@ -28,96 +28,14 @@
         <!-- Komma -->
         <dependency>
             <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.komma.core</artifactId>
+            <artifactId>net.enilink.komma.model</artifactId>
             <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.composition</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.composition.cache</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.composition.properties</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.composition.properties.komma</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.komma.rdf4j</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.komma.em</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.komma.dm</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.komma.literals</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.komma.common</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.commons.iterator</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.vocab.komma</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.vocab.rdfs</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.enilink.komma</groupId>
-            <artifactId>net.enilink.komma.parser</artifactId>
-            <version>${net.enilink.komma.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm-debug-all</artifactId>
-            <version>6.0_BETA</version>
-        </dependency>
-
-        <!-- Guice -->
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>${com.google.guice.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.inject.extensions</groupId>
-            <artifactId>guice-multibindings</artifactId>
-            <version>${com.google.guice.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- RDF4J -->
@@ -125,21 +43,45 @@
             <groupId>org.eclipse.rdf4j</groupId>
             <artifactId>rdf4j-repository-api</artifactId>
             <version>${org.eclipse.rdf4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.rdf4j</groupId>
             <artifactId>rdf4j-repository-http</artifactId>
             <version>${org.eclipse.rdf4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.rdf4j</groupId>
             <artifactId>rdf4j-repository-sail</artifactId>
             <version>${org.eclipse.rdf4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.rdf4j</groupId>
             <artifactId>rdf4j-sail-memory</artifactId>
             <version>${org.eclipse.rdf4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.rdf4j</groupId>

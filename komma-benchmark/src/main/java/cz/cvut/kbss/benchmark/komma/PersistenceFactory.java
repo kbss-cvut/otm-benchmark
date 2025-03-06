@@ -18,6 +18,8 @@ import net.enilink.komma.core.IUnitOfWork;
 import net.enilink.komma.core.KommaModule;
 import net.enilink.komma.dm.IDataManager;
 import net.enilink.komma.dm.IDataManagerFactory;
+import net.enilink.komma.em.CacheModule;
+import net.enilink.komma.em.CachingEntityManagerModule;
 import net.enilink.komma.em.EntityManagerFactoryModule;
 import net.enilink.komma.em.util.UnitOfWork;
 import net.enilink.komma.rdf4j.RDF4JModule;
@@ -60,7 +62,8 @@ public class PersistenceFactory {
             protected void configure() {
                 install(new RDF4JModule());
                 // Disable cache like all other libraries
-                install(new EntityManagerFactoryModule(kommaModule, null, new DisabledCacheModule()));
+                install(new EntityManagerFactoryModule(kommaModule, null, new CachingEntityManagerModule()));
+                install(new CacheModule());
 
                 UnitOfWork uow = new UnitOfWork();
                 uow.begin();
@@ -69,11 +72,11 @@ public class PersistenceFactory {
                 bind(IUnitOfWork.class).toInstance(uow);
                 bind(Repository.class).toInstance(repository);
             }
-
-            @Provides
-            protected IDataManager provideDataManager(IDataManagerFactory dmFactory) {
-                return dmFactory.get();
-            }
+//
+//            @Provides
+//            protected IDataManager provideDataManager(IDataManagerFactory dmFactory) {
+//                return dmFactory.get();
+//            }
         };
     }
 

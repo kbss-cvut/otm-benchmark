@@ -1,9 +1,17 @@
 package cz.cvut.kbss.benchmark.komma.util;
 
-import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import net.enilink.composition.cache.IPropertyCache;
+import net.enilink.komma.core.IEntityManager;
+import net.enilink.komma.core.URI;
+import net.enilink.komma.em.DecoratingEntityManagerModule;
+import net.enilink.komma.em.internal.CachingEntityManager;
+import net.enilink.komma.em.internal.Fqn;
+
+import java.util.Set;
 
 /**
  * Represents a disabled cache.
@@ -11,9 +19,23 @@ import net.enilink.composition.cache.IPropertyCache;
  * This is done so that all the frameworks have the same conditions. JOPA and has also disabled cache for the
  * benchmark.
  */
-public class DisabledCacheModule extends AbstractModule {
+public class DisabledCacheModule extends DecoratingEntityManagerModule {
     @Override
     protected void configure() {
+        super.configure();
+    }
+
+    @Override
+    protected Class<? extends IEntityManager> getManagerClass() {
+        return CachingEntityManager.class;
+    }
+
+    @Provides
+    @Inject(
+            optional = true
+    )
+    Fqn provideContextKey(@Named("modifyContexts") Set<URI> modifyContexts) {
+        return modifyContexts != null ? new Fqn(modifyContexts.toArray()) : new Fqn(new Object[0]);
     }
 
     @Provides
