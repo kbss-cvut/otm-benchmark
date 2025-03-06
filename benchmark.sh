@@ -1,6 +1,13 @@
 #!/bin/bash
 
-JAVA=/opt/java-8-oracle/bin/java
+# Check if .env exists before sourcing
+if [ -f .env ]; then
+    source .env
+else
+    echo ".env file not found!"
+    exit 1
+fi
+
 OUTPUT=benchmark.log
 LOGFILE=logback.xml
 WARMUPS=20
@@ -9,7 +16,6 @@ EXECUTIONS=5
 MEMORY=(32m 64m 128m 256m 512m 1g)
 DATA_DIR=data
 
-GRAPHDB_HOME=~/Java/graphdb-free-8.4.1/
 GRAPHDB_PIDFILE=/tmp/.graphdbpid
 start_graphdb()
 {

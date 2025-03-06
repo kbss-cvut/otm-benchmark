@@ -6,12 +6,18 @@
 #
 ###
 
-JAVA=/opt/java-8-oracle/bin/java
+# Check if .env exists before sourcing
+if [ -f .env ]; then
+    source .env
+else
+    echo ".env file not found!"
+    exit 1
+fi
+
 LOGFILE=logback.xml
 MEM=40m
 DATA_DIR=memory
 
-GRAPHDB_HOME=~/Java/graphdb-free-8.4.1/
 GRAPHDB_PIDFILE=/tmp/.graphdbpid
 start_graphdb()
 {
