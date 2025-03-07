@@ -8,7 +8,7 @@ The benchmark requires the following platforms.
 
 Build:
 
-* JDK 8 (note that JOPA currently does not support later versions of Java)
+* JDK 17 (note that JOPA currently does not support later versions of Java)
 * Apache Maven 3.3 or later (to build the benchmark artifacts)
 
 Execution:
@@ -53,6 +53,11 @@ The execution can be configured using the following parameters:
 * **-o** is the file into which individual round execution times should be written. This is useful for separate processing of the raw execution times e.g. in [R](https://www.r-project.org/).
 * **-m** is the file into which memory tracking statistics should be output. These are collected using `jstat`.
 
+Create a file called `.env` (if it does not exist) where you configure the following environment variables:
+
+* `JAVA` - path to the JDK you want to use to run the benchmark
+* `GRAPHDB_HOME` - path to the GraphDB installation directory
+
 ### Performance - Using `benchmark.sh`
 
 The easiest way to execute the benchmark is to use the associated `benchmark.sh` script. This script contains a predefined configuration which:
@@ -64,7 +69,7 @@ The easiest way to execute the benchmark is to use the associated `benchmark.sh`
 * Runs the benchmark repeatedly to get performance data from multiple JVM executions
 * Outputs raw performance data (using the **-o** switch into a directory called `data`) as well as overall statistics (written into `benchmark.log`)
 
-The script expects GraphDB to be installed in `~/Java/graphdb` and writes GraphDB process id to `/tmp/.graphdbpid` (it is used to stop the GraphDB instance when needed).
+The script writes GraphDB process id to `/tmp/.graphdbpid` (it is used to stop the GraphDB instance when needed).
 
 The current configuration is:
 * Execution count: **5**
@@ -130,6 +135,6 @@ Last, it is necessary to provide an implementation of `AbstractBenchmark` (`Abst
 based on application CLI parameters. This implementation should have a `main` method, which create a new instance of the benchmark application class
 and invoke `run` with command line parameters.
 
-To get a better understanding of how to extends the benchmark for a concrete OTM framework, see the classes and interfaces in module _core_ and their
+To get a better understanding of how to extend the benchmark for a concrete OTM framework, see the classes and interfaces in module _core_ and their
 implementations, for example, in module _jopa-benchmark_ or _empire-benchmark_.
 
