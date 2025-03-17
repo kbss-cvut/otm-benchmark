@@ -4,7 +4,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.Provides;
 import cz.cvut.kbss.benchmark.komma.model.Event;
 import cz.cvut.kbss.benchmark.komma.model.Occurrence;
 import cz.cvut.kbss.benchmark.komma.model.OccurrenceReport;
@@ -16,10 +15,6 @@ import net.enilink.komma.core.IEntityManager;
 import net.enilink.komma.core.IEntityManagerFactory;
 import net.enilink.komma.core.IUnitOfWork;
 import net.enilink.komma.core.KommaModule;
-import net.enilink.komma.dm.IDataManager;
-import net.enilink.komma.dm.IDataManagerFactory;
-import net.enilink.komma.em.CacheModule;
-import net.enilink.komma.em.CachingEntityManagerModule;
 import net.enilink.komma.em.EntityManagerFactoryModule;
 import net.enilink.komma.em.util.UnitOfWork;
 import net.enilink.komma.rdf4j.RDF4JModule;
@@ -44,12 +39,15 @@ public class PersistenceFactory {
             this.repository = new SailRepository(new MemoryStore());
         }
         repository.init();
-        final KommaModule kommaModule = new KommaModule();
-        kommaModule.addConcept(Person.class);
-        kommaModule.addConcept(Event.class);
-        kommaModule.addConcept(Occurrence.class);
-        kommaModule.addConcept(OccurrenceReport.class);
-        kommaModule.addConcept(Resource.class);
+        final KommaModule kommaModule = new KommaModule() {
+            {
+                addConcept(Person.class);
+                addConcept(Event.class);
+                addConcept(Occurrence.class);
+                addConcept(OccurrenceReport.class);
+                addConcept(Resource.class);
+            }
+        };
 
         // create a Guice injector and retrieve an entity manager instance
         Injector injector = Guice.createInjector(createGuiceModule(kommaModule, repository));
@@ -61,9 +59,8 @@ public class PersistenceFactory {
             @Override
             protected void configure() {
                 install(new RDF4JModule());
-                // Disable cache like all other libraries
-                install(new EntityManagerFactoryModule(kommaModule, null, new CachingEntityManagerModule()));
-                install(new CacheModule());
+                // Disable cache, like all other libraries
+                install(new EntityManagerFactoryModule(kommaModule, null, new DisabledCacheModule()));
 
                 UnitOfWork uow = new UnitOfWork();
                 uow.begin();
@@ -72,11 +69,6 @@ public class PersistenceFactory {
                 bind(IUnitOfWork.class).toInstance(uow);
                 bind(Repository.class).toInstance(repository);
             }
-//
-//            @Provides
-//            protected IDataManager provideDataManager(IDataManagerFactory dmFactory) {
-//                return dmFactory.get();
-//            }
         };
     }
 

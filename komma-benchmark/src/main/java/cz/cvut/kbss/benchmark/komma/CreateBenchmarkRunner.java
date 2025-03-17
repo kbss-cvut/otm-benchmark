@@ -12,7 +12,7 @@ public class CreateBenchmarkRunner extends KommaBenchmarkRunner {
         final IEntityManager em = persistenceFactory.entityManager();
         generator.setEm(em);
         generator.persistPersons();
-        em.close();
+//        em.close();
         startMeasuringMemoryUsage();
     }
 
