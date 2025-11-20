@@ -13,7 +13,7 @@
     <artifactId>jopa-benchmark</artifactId>
 
     <properties>
-        <cz.cvut.kbss.jopa.version>2.2.0</cz.cvut.kbss.jopa.version>
+        <cz.cvut.kbss.jopa.version>2.7.0</cz.cvut.kbss.jopa.version>
     </properties>
 
     <dependencies>

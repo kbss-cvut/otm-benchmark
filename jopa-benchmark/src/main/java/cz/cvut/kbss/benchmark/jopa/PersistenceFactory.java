@@ -17,8 +17,6 @@ class PersistenceFactory {
     private final EntityManagerFactory emf;
 
     PersistenceFactory() {
-        // When running in a jar, RDF4J for some reason does not register appropriate RDF writer factories
-//        RDFWriterRegistry.getInstance().add(new BinaryRDFWriterFactory());
         final Map<String, String> properties = new HashMap<>();
         if (Config.getRepoUrl().isPresent()) {
             properties.put(JOPAPersistenceProperties.ONTOLOGY_PHYSICAL_URI_KEY, Config.getRepoUrl().get());
@@ -36,6 +34,10 @@ class PersistenceFactory {
 
     EntityManager entityManager() {
         return emf.createEntityManager();
+    }
+
+    EntityManager entityManager(Map<String, String> properties) {
+        return emf.createEntityManager(properties);
     }
 
     void close() {
