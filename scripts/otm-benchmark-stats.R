@@ -18,7 +18,8 @@ performance_stats <- function(baseDir, operation, provider, heap) {
   result <- list()
   result$mean <- mean(data$V1)
   result$sd <- sd(data$V1)
-  result$ci_lower <- result$mean - qnorm(0.975)*(result$sd/sqrt(300))
-  result$ci_upper <- result$mean + qnorm(0.975)*(result$sd/sqrt(300))
+  n <- nrow(data)
+  result$ci_lower <- result$mean - qnorm(0.975)*(result$sd/sqrt(n))
+  result$ci_upper <- result$mean + qnorm(0.975)*(result$sd/sqrt(n))
   return(result)
 }

@@ -1,5 +1,5 @@
 ##
-# Generates boxplot of performance comparsion results
+# Generates boxplot of performance comparison results
 #
 # The plots are not directly saved because there was a problem with the pdf output causing the plots to be distorted. Thus, the have to
 # be exported manually
