@@ -2,5 +2,8 @@
 **/*.iml
 **/.idea
 data
+r-data
 memory
 benchmark.log
+.RData
+.Rhistory

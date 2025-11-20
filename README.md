@@ -15,8 +15,7 @@ Currently supported libraries:
 ###### Update 2025-03-06
 
 [Empire](https://github.com/mhgrove/Empire) has been removed from the list because it is no longer possible to get or
-build
-the necessary libraries.
+build the necessary libraries.
 
 The benchmark is executed against a locally running GraphDB (but any RDF4J-compatible triple store can be used without
 the need to modify anything).
@@ -34,7 +33,7 @@ The following types of operations are supported:
 
 ##### Create
 
-To simulate a regular transactional behavior of web applications the create benchmark persists reports one by one in
+To simulate the regular transactional behavior of web applications, the create benchmark persists reports one by one in
 separate transactions.
 This means that each transaction persists the report, its occurrence and attachments.
 
@@ -44,14 +43,13 @@ their (non)existence.
 ##### Batch create
 
 This is basically the same as _Create_, but all the reports are now persisted in one big transaction, simulating batch
-processing. E.g. when a
-system processes reports exported from another system.
+processing. E.g., when a system processes reports exported from another system.
 
 ##### Retrieve
 
 Retrieve benchmark retrieves all the reports one by one using their identifier, checking for their attributes and some
-attributes of the referenced entities (e.g. contacts
-of the report's author and last editor, name of the reported occurrence).
+attributes of the referenced entities (e.g., contacts of the report's author and last editor, name of the reported
+occurrence).
 
 ##### Retrieve all
 
@@ -64,16 +62,14 @@ are then checked the same way as in Retrieve.
 The update benchmark takes every odd report and updates several of its attributes. Then it merges the instance into the
 storage.
 The updates are: change last editor, change last modified date, update occurrence name, update severity assessment,
-increase revision number,
-add a new attachment (which has to be persisted). Each report is updated in a separate transaction. Since AliBaba does
-not support
-detached objects, update in its case requires making the changes on a managed object loaded from the storage.
+increase revision number, add a new attachment (which has to be persisted). Each report is updated in a separate
+transaction. Since AliBaba does not support detached objects, update in its case requires making the changes on a
+managed object loaded from the storage.
 
 ##### Delete
 
 Deletes every odd report, including all its references (except for author/last editor). Each report is deleted in a
-separate transaction.
-Correct removal is verified.
+separate transaction. Correct removal is verified.
 
 #### Model
 
@@ -116,14 +112,14 @@ at [https://kbss.felk.cvut.cz/web/otm-benchmark](https://kbss.felk.cvut.cz/web/o
 
 ### Result Processing
 
-The `scripts` folder contains a couple of scripts used to process the resulting data files.
+The `scripts` folder contains a couple of scripts used to process the resulting data files. It also contains `howto.md`
+with instructions on how to process the results with R.
 
 * `transform_performance.py` - a Python script used to consolidate raw execution results for each library into one CSV
   file, suitable for processing in R.
-  The following R scripts expect datasets generated using `transform_performance.py`.
-* `otm-benchmark-boxplot.R` - generates boxplots visualizing the results for one heap size
+* `otm-benchmark-boxplot.R` - generates box-plots visualizing the results for one heap size
 * `otm-benchmark-scalability.R` - generates scalability line plots for all operations and all supported heap sizes
-* `otm-benchmark-stats.R` - generates basic statistics - mean execution time, standard deviation and the 95% confidence
+* `otm-benchmark-stats.R` - generates basic statistics: mean execution time, standard deviation and the 95% confidence
   interval
 
 ## References

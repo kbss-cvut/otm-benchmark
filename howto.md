@@ -84,7 +84,7 @@ Memory benchmark using the `memory-benchmark-gc.sh` is the preferred way of benc
 performance benchmark in a loop for a predefined time interval (configured using the `config.properties` files described above), outputting garbage collection (GC) data into
 a preconfigured file. The GC logging is set using the `-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc` JVM parameters.
 
-The script runs the memory benchmark for each of the supported OTM framework, restarting the GraphDB repository between running individual frameworks.
+The script runs the memory benchmark for each of the supported OTM frameworks, restarting the GraphDB repository between running individual frameworks.
 
 All the GC data are written into separate files named after the respective OTM frameworks (e.g., `alibaba-gc.log`) and stored in a directory called `memory`.
 
@@ -112,22 +112,22 @@ can use the correct concrete type.
 Benchmark operations (create, batch create, retrieve, retrieve all, update, delete) are performed by implementations of CRUD operation
 executors - `Saver`, `Finder`, `Updater`, `Deleter`. These interfaces can be found in the `cz.cvut.kbss.benchmark.util` package in _core_.
 
-Instructions for implementations are provided in javadoc of the respective executors.
+Instructions for implementations are provided in Javadoc of the respective executors.
 
 ### DataGenerator
 
 `DataGenerator` provides the benchmark with data. Again, the configuration of how many instances of what classes and how to interconnect them
 is in `DataGenerator`. Concrete subclasses only need to provide factory methods for creating instances of the model classes and invoke
-`generate` to pre-generate test data. Consult the class' javadoc for details.
+`generate` to pre-generate test data. Consult the class' Javadoc for details.
 
 ### Benchmark Runners
 
 Benchmark runners represent implementations for the individual benchmark operations. They should implement suitable setup methods, mostly to 
 create `DataGenerator`, let it generate test data and initialize the OTM framework. Then, in `execute`, they invoke appropriate superclass methods
-for the benchmarked operation, e.g. batch create runner should invoke `executeBatchCreate`, passing operation executor as a parameter.
+for the benchmarked operation, e.g., batch create runner should invoke `executeBatchCreate`, passing operation executor as a parameter.
 
-It is also important to implement an tear down method, which should clear the repository after each round (by invoking `BenchmarkUtil.clearRepository()` with
-repository URL). Usually, it is good to extract this behaviour into a common superclass for all benchmark runners.
+It is also important to implement a tear-down method, which should clear the repository after each round (by invoking `BenchmarkUtil.clearRepository()` with
+repository URL). Usually, it is good to extract this behavior into a common superclass for all benchmark runners.
 
 ### Benchmark Application
 
