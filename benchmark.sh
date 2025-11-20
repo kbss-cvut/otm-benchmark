@@ -90,13 +90,6 @@ execute_round()
     echo "---------------------------------------" >> ${OUTPUT}
     execute_with_provider "alibaba-benchmark" ${1}
 
-    #Empire Benchmark
-    echo "Running Empire..."
-    echo "---------------------------------------" >> ${OUTPUT}
-    echo "|               Empire                |" >> ${OUTPUT}
-    echo "---------------------------------------" >> ${OUTPUT}
-    execute_with_provider "empire-benchmark" ${1}
-
     # JOPA Benchmark
     echo "Running JOPA..."
     echo "---------------------------------------" >> ${OUTPUT}
